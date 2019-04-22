@@ -5,12 +5,12 @@
 
 	<insert id="insert" parameterType="com.news.dto.ImageDto"
 		keyProperty="id" useGeneratedKeys="true">
-		insert into good_publist_image (image_url,create_time,update_time,is_del)
+		insert into good_publish_image (image_url,create_time,update_time,is_del)
 		values(#{imageUrl},now(),now(),'0')
 	</insert>
 
 	<update id="update" parameterType="java.util.List">
-			update good_publist_image
+			update good_publish_image
 		<set>
 			good_publish_id=#{list[0].goodPublishId}
 		</set>
@@ -22,7 +22,7 @@
 	
 	
     <select id="getList" resultType="com.news.dto.ImageDto">
-      select * from good_publist_image where good_publish_id=#{id}
+      select * from good_publish_image where good_publish_id=#{id}
     </select>
 
 </mapper>

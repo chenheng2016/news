@@ -10,6 +10,17 @@ public class MySecondHandVo extends SecondHandVo {
 
 	@ApiModelProperty(value = "用户id", example = "10")
 	private Integer userId;
+	
+	@ApiModelProperty(value = "商品发布id", example = "32")
+	private Integer goodPublishId;
+	
+	public Integer getGoodPublishId() {
+		return goodPublishId;
+	}
+
+	public void setGoodPublishId(Integer goodPublishId) {
+		this.goodPublishId = goodPublishId;
+	}
 
 	@JsonIgnore
 	private Integer pageIndex;

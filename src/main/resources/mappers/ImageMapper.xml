@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.news.mapper.ImageMapper">
+
+
+	<insert id="insert" parameterType="com.news.dto.ImageDto"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into good_publist_image (image_url,create_time,update_time,is_del)
+		values(#{imageUrl},now(),now(),'0')
+	</insert>
+
+	<update id="update" parameterType="java.util.List">
+			update good_publist_image
+		<set>
+			good_publish_id=#{list[0].goodPublishId}
+		</set>
+		where id in
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+			 #{item.id}
+		</foreach>
+	</update>
+	
+	
+    <select id="getList" resultType="com.news.dto.ImageDto">
+      select * from good_publist_image where good_publish_id=#{id}
+    </select>
+
+</mapper>

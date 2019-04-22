@@ -1,8 +1,12 @@
 package com.news.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import com.news.dto.ImageDto;
 
 public interface UploadService {
 
-	public void upload(MultipartFile[] file);
+	public List<ImageDto> upload(MultipartFile[] file);
 }

@@ -19,6 +19,7 @@ public class SecondHandServiceImpl implements  SecondHandService{
 	@Autowired
 	private SecondHandMapper secondHandlerMapper;
 	
+	
 	@Override
 	public int insert(SecondHandGoodVo handerGoodVo) {
 		return secondHandlerMapper.insert(handerGoodVo);

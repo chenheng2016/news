@@ -16,7 +16,9 @@ import com.news.bean.base.ResponseListData;
 import com.news.bean.base.ResponseSimpleData;
 import com.news.dto.CategoryDto;
 import com.news.model.SecondHandGoodStatis;
+import com.news.service.ImageService;
 import com.news.service.SecondHandService;
+import com.news.vo.ImageVo;
 import com.news.vo.MySecondHandVo;
 import com.news.vo.SecondHandGoodVo;
 
@@ -31,12 +33,26 @@ public class SecondHandController {
 
 	@Autowired
 	private SecondHandService secondHandlerService;
+	
+	@Autowired
+	private ImageService imageService;
 
 	@PostMapping("/insert")
 	@ApiOperation(value = "插入", notes = "发布信息")
 	public ResponseSimpleData insert(@RequestBody SecondHandGoodVo secondHandGoodVo) {
 		ResponseSimpleData responseSimpleData =null;
+		//1.插入主表 返回主键id
 		int count = secondHandlerService.insert(secondHandGoodVo);
+		//2.更新图片表 
+		List<ImageVo> images = secondHandGoodVo.getImages();
+		if(images!=null && images.size()>0){
+			//设置发布id
+			for(ImageVo v:images){
+				v.setGoodPublishId(secondHandGoodVo.getId());
+			}
+			//批量更新图片的发布id
+			imageService.update(images);
+		}
 		// 插入图片之后
 		if (count > 0) {
 			responseSimpleData=ResponseSimpleData.createBySuccessMessage(Arrays.asList("添加成功"));

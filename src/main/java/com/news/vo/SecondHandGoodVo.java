@@ -1,5 +1,7 @@
 package com.news.vo;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModel;
@@ -23,8 +25,8 @@ public class SecondHandGoodVo {
 	@ApiModelProperty(value="描述",example="此猫小巧听话")
 	private String desc;//二手商品描述
 	
-	@ApiModelProperty(value="图片",example="https://www.baidu.com/s?tn=50000022_hao_pg&wd=%E6%9D%8E%E5%BD%A6%E5%AE%8F+%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91&usm=2&ie=utf-8&rsv_cq=%E7%99%BE%E5%BA%A6%E7%BF%BB%E8%AF%91&rsv_dl=0_right_recommends_merge_20826&euri=b1f02a70c8e5407bbee068f493457e51")
-	private String images;//图片列表
+	@ApiModelProperty(value="图片",example="")
+	private List<ImageVo> images;//图片列表
 	
 	@ApiModelProperty(value="地址",example="湖北省武汉市湖口社区")
 	private String address;//地址
@@ -122,11 +124,11 @@ public class SecondHandGoodVo {
 		this.desc = desc;
 	}
 
-	public String getImages() {
+	public List<ImageVo> getImages() {
 		return images;
 	}
 
-	public void setImages(String images) {
+	public void setImages(List<ImageVo> images) {
 		this.images = images;
 	}
 

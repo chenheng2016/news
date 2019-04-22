@@ -2,13 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.news.mapper.SecondHandMapper">
 
+	<resultMap type="com.news.model.SecondHandGood" id="selectListMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="price" property="price" />
+		<result column="publish_time" property="publishTime" />
+		<result column="desc" property="desc" />
+		<result column="address" property="address" />
+		<result column="feature" property="feature" />
+		<result column="link_person" property="linkPerson" />
+		<result column="link_way" property="linkWay" />
+		<result column="user_id" property="userId" />
+		<result column="product_id" property="productId" />
+		<result column="sub_product_id" property="subProductId" />
+		<result column="title" property="title" />
+		<collection property="images" ofType="com.news.dto.ImageDto"
+			column="id" select="com.news.mapper.ImageMapper.getList"></collection>
+	</resultMap>
 
 	<insert id="insert" parameterType="com.news.vo.SecondHandGoodVo"
 		keyProperty="id" useGeneratedKeys="true">
 		insert into good_publish
-		(name,price,desc,images,address,feature,link_person,link_way,user_id,product_id,sub_product_id,title,publish_time,create_time,update_time,is_del)
+		(name,price,`desc`,address,feature,link_person,link_way,user_id,product_id,sub_product_id,title,publish_time,create_time,update_time,is_del)
 		values
-		(#{name},#{price},#{desc},#{images},#{address},#{feature},#{linkPerson},#{linkWay},#{userId},#{productId},#{subProductId},#{title},#{publishTime},now(),now(),'0')
+		(#{name},#{price},#{desc},#{address},#{feature},#{linkPerson},#{linkWay},#{userId},#{productId},#{subProductId},#{title},#{publishTime},now(),now(),'0')
 	</insert>
 
 	<select id="getCount" parameterType="com.news.vo.MySecondHandVo"
@@ -24,11 +41,14 @@
 			<if test="subProductId!=null">
 				and sub_product_Id=#{subProductId}
 			</if>
+			<if test="goodPublishId!=null">
+				and id=#{goodPublishId}
+			</if>
 		</where>
 	</select>
 
 	<select id="selectList" parameterType="com.news.vo.MySecondHandVo"
-		resultType="com.news.model.SecondHandGood">
+		resultMap="selectListMap">
 		select * from good_publish
 		<where>
 			<if test="userId!=null">
@@ -40,13 +60,17 @@
 			<if test="subProductId!=null">
 				and sub_product_Id=#{subProductId}
 			</if>
+			<if test="goodPublishId!=null">
+				and id=#{goodPublishId}
+			</if>
 		</where>
 		order by publish_time desc
 		limit ${pageIndex},#{pageSize}
 	</select>
 
 	<select id="getCategoryList" resultType="com.news.dto.CategoryDto">
-		select * from ${tableName}_category
+		select * from
+		${tableName}_category
 	</select>
-	
+
 </mapper>

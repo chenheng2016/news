@@ -9,9 +9,9 @@ public interface UserMapper {
 
 	public int register(UserVo user);
 	
-	public UserDto selectByUserNameAndPassword(UserVo userVo);
+	public UserDto selectByMobileAndPassword(UserVo userVo);
 	
-	public List<UserVo> validUsernameUnique(String username);
+	public List<UserVo> validMobileUnique(String mobile);
 	
 	public int checkUsername(UserVo userVo);
 }

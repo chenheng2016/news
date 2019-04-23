@@ -4,15 +4,15 @@
     
     
     <insert id="register" parameterType="com.news.vo.UserVo" keyProperty="id" useGeneratedKeys="true">
-        insert into user (user_name,password,create_time,update_time,is_del) values(#{username},#{password},now(),now(),'0')
+        insert into user (user_name,password,mobile,create_time,update_time,is_del) values(#{username},#{password},#{mobile},now(),now(),'0')
     </insert>
     
-    <select id="selectByUserNameAndPassword" parameterType="com.news.vo.UserVo" resultType="com.news.dto.UserDto">
-      select * from user where user_name=#{username} and password=#{password}
+    <select id="selectByMobileAndPassword" parameterType="com.news.vo.UserVo" resultType="com.news.dto.UserDto">
+      select id userId,mobile mobile,user_name username from user where mobile=#{mobile} and password=#{password}
     </select>
     
-    <select id="validUsernameUnique" parameterType="string" resultType="com.news.vo.UserVo">
-        select * from user where user_name=#{username}
+    <select id="validMobileUnique" parameterType="string" resultType="com.news.vo.UserVo">
+        select * from user where mobile=#{mobile}
     </select>
   
 </mapper>

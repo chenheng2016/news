@@ -29,38 +29,37 @@ public class UserController {
 	@ApiOperation(value = "用户注册", notes = "用户注册功能")
 	@PostMapping(value = "/register")
 	public ResponseSimpleData register(@RequestBody UserVo userVo) {
-		if (userVo.getUsername() == null || userVo.getUsername().trim() == "" || userVo.getPassword() == null
-				|| userVo.getPassword().trim() == "") {
-			throw new RuntimeException("用户名和密码都不能为空");
+		if (userVo.getMobile() == null || userVo.getMobile().trim().equals("") || userVo.getPassword() == null
+				|| userVo.getPassword().trim().equals("")) {
+			throw new RuntimeException("手机号和密码都不能为空");
 		}
 		ResponseSimpleData responseData = null;
 		// 判断用户名是否重复
-		List<UserVo> validUsernameUnique = userService.validUsernameUnique(userVo.getUsername());
-		if (validUsernameUnique != null && validUsernameUnique.size() >= 1) {
-			responseData=ResponseSimpleData.createByErrorMessage(Arrays.asList("用户名有重复"));
+		List<UserVo> validMobileUnique = userService.validMobileUnique(userVo.getMobile());
+		if (validMobileUnique != null && validMobileUnique.size() >= 1) {
+			responseData = ResponseSimpleData.createByErrorMessage(Arrays.asList("用户名有重复"));
 			return responseData;
 		}
 
 		int result = userService.register(userVo);
 		if (result > 0) {
-			responseData=ResponseSimpleData.createBySuccessMessage(Arrays.asList("添加成功"));
+			responseData = ResponseSimpleData.createBySuccessMessage(Arrays.asList("添加成功"));
 			return responseData;
 		}
-		responseData=ResponseSimpleData.createByErrorMessage(Arrays.asList("添加失败"));
+		responseData = ResponseSimpleData.createByErrorMessage(Arrays.asList("添加失败"));
 		return responseData;
 	}
 
 	@ApiOperation(value = "用户登录", notes = "用户登录功能")
 	@PostMapping(value = "/login")
 	public ResponseData<UserDto> login(@RequestBody UserVo userVo) {
-		if (userVo.getUsername() == null || userVo.getUsername().trim() == "" || userVo.getPassword() == null
-				|| userVo.getPassword().trim() == "") {
-			throw new RuntimeException("用户名和密码都不能为空");
+		if (userVo.getMobile() == null || userVo.getMobile().trim().equals("") || userVo.getPassword() == null
+				|| userVo.getPassword().trim().equals("")) {
+			throw new RuntimeException("手机号和密码都不能为空");
 		}
-		UserDto result = userService.selectByUserNameAndPassword(userVo);
+		UserDto result = userService.selectByMobileAndPassword(userVo);
 		ResponseData<UserDto> responseData = null;
 		if (result != null) {
-			result.setPassword(null);
 			responseData = ResponseData.createBySuccessMessageData(Arrays.asList("登录成功"), result);
 			return responseData;
 		}

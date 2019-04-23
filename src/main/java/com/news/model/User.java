@@ -19,6 +19,16 @@ public class User extends Dto {
 	private Date updateTime;//更新时间
 	
 	private String isDel;//是否删除
+	
+	private String mobile;//手机号
+	
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	public Date getCreateTime() {
 		return createTime;

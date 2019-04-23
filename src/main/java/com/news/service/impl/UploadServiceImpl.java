@@ -40,7 +40,7 @@ public class UploadServiceImpl implements UploadService {
 				directory.mkdirs();// 级联创建目录
 			}
 
-			String fullFilePath = directory + fileName;
+			String fullFilePath = directory +"/"+ fileName;
 
 			try {
 				IOUtils.copy(m.getInputStream(), new FileOutputStream(fullFilePath));

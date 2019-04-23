@@ -22,13 +22,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto selectByUserNameAndPassword(UserVo userVo) {
-		return userMapper.selectByUserNameAndPassword(userVo);
+	public UserDto selectByMobileAndPassword(UserVo userVo) {
+		return userMapper.selectByMobileAndPassword(userVo);
 	}
 
 	@Override
-	public List<UserVo> validUsernameUnique(String username) {
-		return userMapper.validUsernameUnique(username);
+	public List<UserVo> validMobileUnique(String mobile) {
+		return userMapper.validMobileUnique(mobile);
 	}
 
 }
